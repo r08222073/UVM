@@ -13,7 +13,7 @@ class CNC_monitor extends uvm_monitor;
   
   // begin captured (by the collect_address_phase and data_phase methods).
   //---------------------------------------
-  uvm_analysis_port #(CNC_seq_item) item_collected_port;
+
   CNC_seq_item trans_collected;
   `uvm_component_utils(CNC_monitor)
   //----constructor---------------------------------------
@@ -23,13 +23,6 @@ class CNC_monitor extends uvm_monitor;
     item_collected_port = new("item_collected_port", this);
   endfunction : new
 
-  // constructor
-  //---------------------------------------
-  function new (string name, uvm_component parent);
-    super.new(name, parent);
-    trans_collected = new();
-    item_collected_port = new("item_collected_port", this);
-  endfunction : new
 
   //---------------------------------------
   // build_phase - getting the interface handle
@@ -67,7 +60,7 @@ class CNC_monitor extends uvm_monitor;
       `uvm_info(get_type_name(),$sformatf("monitor_trans_collected.d: %0d",trans_collected.d),UVM_LOW)
       `uvm_info(get_type_name(),$sformatf("monitor_trans_collected.e: %0d",trans_collected.e),UVM_LOW)
       `uvm_info(get_type_name(),$sformatf("monitor_trans_collected.f: %0d",trans_collected.f),UVM_LOW)
-	    item_collected_port.write(trans_collected);
+	item_collected_port.write(trans_collected);
       end 
   endtask : run_phase
 
